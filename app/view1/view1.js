@@ -43,15 +43,14 @@ angular.module('myApp.view1', ['ngRoute'])
           if (allCompliant) { // if all children are OK, set a fixed height on root
             const lineHeight = parseFloat(style.lineHeight);
             if (!Number.isFinite(lineHeight)) {
-              throw new Error('Line height must be a decimal number. Normal is not allowed');
+              throw new Error('Line height must be a decimal number. "normal" is not allowed.');
             }
-            const fontSize = parseFloat(style.fontSize);
-            if (lineHeight === 0 || fontSize === 0) { // shouldn't happen in real life unless there is some css style hack
-              throw new Error('Line height or font size is 0');
+            if (lineHeight === 0) { // shouldn't happen in real life unless there is some css style hack
+              throw new Error('Line height cannot be 0.');
             }
             const currentHeight = parseFloat(style.height);
             const numOfLines = Math.round(currentHeight / lineHeight);
-            const forcedHeight = fontSize * numOfLines;
+            const forcedHeight = lineHeight * numOfLines;
             root.style.height = forcedHeight.toFixed(1) + 'px';
           }
         }
