@@ -1,5 +1,10 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+function get(validUrl, handleError) {...}<br/>
+<button ng-click="get(true, true)">get(true, true);</button><br/>
+<button ng-click="get(true, false)">get(true, false);</button><br/>
+<button ng-click="get(false, true)">get(false, true);</button><br/>
+<button ng-click="get(false, false)">get(false, false);</button> &lt;--- triggers fallback errorCallback<br/>
+<br/>
+To add a global 'unhandledHttpError' event to your app:<br/>
+1) copy code between "//START//" and "//END//"<br/>
+2) paste it into your app's config method.<br/>
+<br/>

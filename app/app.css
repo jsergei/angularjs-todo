@@ -1,5 +1,9 @@
 /* app css stylesheet */
 
+body {
+  background: rgb(170, 165, 165);
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
