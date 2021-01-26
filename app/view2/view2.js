@@ -11,7 +11,7 @@ angular.module('myApp.view2', ['ngRoute'])
 .run(myRun)
 .config(myConfig)
 
-.controller('View2Ctrl', ['$scope', '$http', function($scope, $http) {
+.controller('View2Ctrl', ['$scope', '$http', '$q', function($scope, $http, $q) {
   $scope.get = function(validUrl, handleError) {
     const apiKey = '16da40803f5f12b6407e4e7af5598e46' + (validUrl ? '' : 's');
     let url = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${apiKey}`;
@@ -21,9 +21,16 @@ angular.module('myApp.view2', ['ngRoute'])
     };
     if (!handleError) errorCallback = null;
 
-    $http.get(url).then(s => s).then(function(response) {
+    $q.all([
+      $http.get(url),
+      $q.resolve('Hi')
+    ]).then(s => {
       alert('Success callback called');
-    }, errorCallback);
+    });
+
+    // $http.get(url).then(s => s).then(s => s).then(s => s).then(function(response) {
+    //   alert('Success callback called');
+    // }, errorCallback);
   }
 }]);
 
