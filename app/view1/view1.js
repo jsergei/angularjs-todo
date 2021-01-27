@@ -2,20 +2,20 @@
 
 // 1.5.10
 
-// angular
-//     .module('myApp')
-//     .decorator('$exceptionHandler', ['$delegate', ($delegate) => {
-//       return function (exception, errorMessage) {
-//           // If a promise is rejected (d.reject('abc')), then there are 2 params and the second will have the "possibly unhandled ..."
-//           // Otherwise, if there is an exception inside of some .then(), then there will be just one param 
-//           const strMessage = exception && errorMessage ? errorMessage : exception;
-//           if ((strMessage.toString().toLowerCase()).startsWith("possibly unhandled rejection")) {
-//               console.warn('CAUGHT!');
-//               console.log(exception);
-//           }
-//           $delegate.apply(null, arguments);
-//       };
-//     }]);
+angular
+  .module('myApp')
+  .decorator('$exceptionHandler', ['$delegate', ($delegate) => {
+    return function (exception, errorMessage) {
+        // If a promise is rejected (d.reject('abc')), then there are 2 params and the second will have the "possibly unhandled ..."
+        // Otherwise, if there is an exception inside of some .then(), then there will be just one param 
+        const strMessage = exception && errorMessage ? errorMessage : exception;
+        if ((strMessage.toString().toLowerCase()).startsWith("possibly unhandled rejection")) {
+            console.warn('CAUGHT!');
+            console.log(exception);
+        }
+        $delegate.apply(null, arguments);
+    };
+  }]);
 
 
 angular.module('myApp.view1', ['ngRoute'])
@@ -27,30 +27,17 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-// Error Interceptor
-.factory('errorInterceptor', ['$q', ($q) => {
-  return {
-    response: function (response) {
-      return response;
-    },
-    responseError: function (response) {
-      return $q.reject(response);
-    }
-  };
-}])
-.config(['$httpProvider', ($httpProvider) => {
-  $httpProvider.interceptors.push('errorInterceptor');
-}])
-
 .controller('View1Ctrl', ['$q', '$http', function($q, $http) {
   const apiKey = '16da40803f5f12b6407e4e7af5598e46' + 's';
   $http.get(`http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${apiKey}`)
     .then(data => {
       console.log('SUCCESS!');
-      console.log(data);
+      return data;
     }, error => {
-      console.log('ERROR!');
-      console.log(error);
+      return $q.reject(error);
+    }).then(data => {
+      console.log('DATA:');
+      console.log(data);
     });
 }]);
 
