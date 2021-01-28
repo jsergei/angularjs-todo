@@ -28,7 +28,7 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$q', '$http', function($q, $http) {
-  const apiKey = '16da40803f5f12b6407e4e7af5598e46' + 's';
+  const apiKey = '' + 's';
   $http.get(`http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${apiKey}`)
     .then(data => {
       console.log('SUCCESS!');

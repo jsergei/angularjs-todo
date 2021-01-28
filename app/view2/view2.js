@@ -13,7 +13,7 @@ angular.module('myApp.view2', ['ngRoute'])
 
 .controller('View2Ctrl', ['$scope', '$http', '$q', function($scope, $http, $q) {
   $scope.get = function(validUrl, handleError) {
-    const apiKey = '16da40803f5f12b6407e4e7af5598e46' + (validUrl ? '' : 's');
+    const apiKey = '' + (validUrl ? '' : 's');
     let url = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=${apiKey}`;
 
     let errorCallback = function(response) {
